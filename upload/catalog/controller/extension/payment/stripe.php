@@ -1,5 +1,6 @@
 <?php
 class ControllerExtensionPaymentStripe extends Controller {
+
 	public function index() {
 		$this->load->language('extension/payment/stripe');
 		$this->load->model('extension/payment/stripe');
@@ -9,23 +10,6 @@ class ControllerExtensionPaymentStripe extends Controller {
 		} else {
 			$data['publishable_key'] = $this->config->get('payment_stripe_test_publishable_key');
 		}
-
-		$data['text_credit_card'] = $this->language->get('text_credit_card');
-		$data['text_start_date'] = $this->language->get('text_start_date');
-		$data['text_wait'] = $this->language->get('text_wait');
-		$data['text_loading'] = $this->language->get('text_loading');
-
-		$data['entry_cc_type'] = $this->language->get('entry_cc_type');
-		$data['entry_cc_number'] = $this->language->get('entry_cc_number');
-		$data['entry_cc_start_date'] = $this->language->get('entry_cc_start_date');
-		$data['entry_cc_expire_date'] = $this->language->get('entry_cc_expire_date');
-		$data['entry_cc_cvv2'] = $this->language->get('entry_cc_cvv2');
-		$data['entry_cc_issue'] = $this->language->get('entry_cc_issue');
-
-		$data['help_start_date'] = $this->language->get('help_start_date');
-		$data['help_issue'] = $this->language->get('help_issue');
-
-		$data['button_confirm'] = $this->language->get('button_confirm');
 
 		$data['can_store_cards'] = ($this->customer->isLogged() && $this->config->get('payment_stripe_store_cards'));
 		$data['cards'] = [];
@@ -52,7 +36,6 @@ class ControllerExtensionPaymentStripe extends Controller {
 		if($this->initStripe()) {
 			$use_existing_card = json_decode($this->request->post['existingCard']);
 
-			$stripe_customer_id = '';
 			$stripe_charge_parameters = array(
 				'amount' => round($order_info['total'] * 100),
 				'currency' => $this->config->get('payment_stripe_currency'),
