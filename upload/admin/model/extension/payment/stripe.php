@@ -16,7 +16,6 @@ class ModelExtensionPaymentStripe extends Model {
 		$this->log('Module uninstalled');
 	}
 
-
 	public function getOrder($order_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "stripe_order WHERE order_id = '" . (int)$order_id . "' LIMIT 1");
 
@@ -28,10 +27,7 @@ class ModelExtensionPaymentStripe extends Model {
 	}
 
 	public function log($data) {
-		// if ($this->config->has('payment_stripe_logging') && $this->config->get('payment_stripe_logging')) {
 			$log = new Log('stripe.log');
-
 			$log->write($data);
-		// }
 	}
 }
